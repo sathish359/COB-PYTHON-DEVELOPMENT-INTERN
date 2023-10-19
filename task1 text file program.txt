@@ -1,0 +1,46 @@
+
+
+#python program to read a text file and find all the unique words and their word occurrences
+
+import string
+
+def get_unique_word_counts(file_location):  #create a function
+    word_counts = {}
+
+    try:
+        
+        with open(file_location, 'r') as file:
+            for line in file:
+                
+                words = line.split()
+
+                for word in words:
+                    
+                    word = word.strip(string.punctuation).lower()   #Python-->python
+
+                    if word:
+                        
+                        if word in word_counts:     #word is similar count will be incremented
+                            word_counts[word] += 1
+                        else:
+                            word_counts[word] = 1   #word is not similar count will be same
+
+    except FileNotFoundError:
+        return "File not found. Please re-check and run the code"
+        
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+    return word_counts
+
+if __name__ == "__main__":
+    file_name = "python.txt"   #enter the file name
+
+    word_counts = get_unique_word_counts(file_name)     #call a function
+
+    if isinstance(word_counts, str):    #checks the type of a word_counts is string or not
+        print(word_counts)
+    else:
+        print("Unique words and their occurrences:")
+        for word, count in word_counts.items():
+            print(f"{word}: {count}")
